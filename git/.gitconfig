@@ -10,3 +10,12 @@
 	syntax-theme = Catppuccin Mocha
 [merge]
 	conflictstyle = zdiff3
+[user]
+	name = Andre Lustosa
+	email = alustosa@redhat.com
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential

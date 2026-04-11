@@ -61,6 +61,14 @@ alias ga="git add"
 alias gc="git commit -s"
 alias lg="lazygit"
 
+# Git worktrees
+alias gwl="git worktree list"
+alias gwa="git worktree add"
+alias gwr="git worktree remove"
+
+# tmux sessionizer (fzf-pick a project → tmux session)
+alias ts="$HOME/git/dotfiles/bash/tmux-sessionizer.sh"
+
 # Safe delete (moves to trash instead of permanent delete)
 alias rm="trash-put"
 alias rmm="/usr/bin/rm"
