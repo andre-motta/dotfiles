@@ -20,6 +20,21 @@ return {
 					hide_gitignored = false,
 				},
 			},
+			default_component_configs = {
+				git_status = {
+					symbols = {
+						added = "✚",
+						modified = "",
+						deleted = "✖",
+						renamed = "󰁕",
+						untracked = "",
+						ignored = "",
+						unstaged = "󰄱",
+						staged = "",
+						conflict = "",
+					},
+				},
+			},
 			window = { width = 30 },
 		},
 	},
@@ -132,6 +147,16 @@ return {
 		"MeanderingProgrammer/render-markdown.nvim",
 		ft = { "markdown" },
 		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+		opts = {},
+	},
+
+	-- Claude Code
+	{
+		"greggh/claude-code.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		keys = {
+			{ "<leader>cc", desc = "Toggle Claude Code" },
+		},
 		opts = {},
 	},
 }
