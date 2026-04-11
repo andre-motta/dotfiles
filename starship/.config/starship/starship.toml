@@ -1,0 +1,95 @@
+format = """
+[](blue)\
+$os\
+$username\
+[](bg:cyan fg:blue)\
+$directory\
+[](fg:cyan bg:green)\
+$git_branch\
+$git_status\
+[](fg:green bg:yellow)\
+$python\
+$rust\
+$golang\
+$nodejs\
+[](fg:yellow bg:red)\
+$time\
+[ ](fg:red)\
+$cmd_duration\
+$line_break\
+$character"""
+
+palette = "modern"
+
+[palettes.modern]
+blue = "#5E81AC"
+cyan = "#88C0D0"
+green = "#A3BE8C"
+yellow = "#EBCB8B"
+red = "#BF616A"
+fg = "#2E3440"
+
+[os]
+disabled = false
+style = "bg:blue fg:fg"
+format = "[ $symbol ]($style)"
+
+[os.symbols]
+Fedora = ""
+
+[username]
+show_always = true
+style_user = "bg:blue fg:fg bold"
+format = "[ $user ]($style)"
+
+[directory]
+style = "bg:cyan fg:fg"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = ".../"
+
+[git_branch]
+symbol = ""
+style = "bg:green fg:fg"
+format = "[ $symbol $branch ]($style)"
+
+[git_status]
+style = "bg:green fg:fg"
+format = "[$all_status$ahead_behind ]($style)"
+
+[python]
+symbol = ""
+style = "bg:yellow fg:fg"
+format = "[ $symbol $version ]($style)"
+
+[rust]
+symbol = ""
+style = "bg:yellow fg:fg"
+format = "[ $symbol $version ]($style)"
+
+[golang]
+symbol = ""
+style = "bg:yellow fg:fg"
+format = "[ $symbol $version ]($style)"
+
+[nodejs]
+symbol = ""
+style = "bg:yellow fg:fg"
+format = "[ $symbol $version ]($style)"
+
+[time]
+disabled = false
+time_format = "%R"
+style = "bg:red fg:fg"
+format = "[ 󰥔 $time ]($style)"
+
+[cmd_duration]
+min_time = 2_000
+format = " took [$duration](bold yellow)"
+
+[character]
+success_symbol = "[](bold green)"
+error_symbol = "[](bold red)"
+
+[line_break]
+disabled = false

@@ -1,0 +1,17 @@
+## Search mode: fuzzy, prefix, fulltext, or skim
+search_mode = "fuzzy"
+
+## Filter mode when searching: global, host, session, directory
+filter_mode = "global"
+
+## Style of the search UI: compact, full, auto
+style = "compact"
+
+## Show a preview of the command output
+show_preview = true
+
+## Inline height (number of lines)
+inline_height = 20
+
+## Enable up arrow to search
+enter_accept = true
