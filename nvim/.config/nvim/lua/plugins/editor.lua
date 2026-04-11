@@ -150,13 +150,4 @@ return {
 		opts = {},
 	},
 
-	-- Claude Code
-	{
-		"greggh/claude-code.nvim",
-		dependencies = { "nvim-lua/plenary.nvim" },
-		keys = {
-			{ "<leader>cc", desc = "Toggle Claude Code" },
-		},
-		opts = {},
-	},
 }
