@@ -1,0 +1,179 @@
+# Terminal Tips & Tricks
+# One tip per line. Lines starting with # are ignored.
+# Shown randomly on each new terminal.
+
+# --- Navigation ---
+z <dir> — jump to any directory instantly (zoxide learns from your cd history)
+z builder — jumps straight to ~/git/builder
+Ctrl+T — fuzzy find files with preview (fzf)
+y — open yazi file manager, terminal cd's to where you quit
+y then press z inside yazi — jump to a directory with zoxide
+y then press / inside yazi — search for files in current directory
+
+# --- Shell History ---
+Ctrl+R — fuzzy search your entire command history (atuin)
+atuin stores history in SQLite — it survives terminal crashes and reboots
+atuin search works across all your terminal sessions, not just the current one
+
+# --- File Listing (eza) ---
+ls — pretty listing with icons and git status indicators
+ll — detailed listing with permissions, size, dates
+lt — tree view (2 levels deep)
+ltr — list files sorted by most recently modified
+ls shows git status icons next to modified/untracked files
+
+# --- File Viewing (bat) ---
+cat file — syntax-highlighted view (bat under the hood)
+catn file — same but with line numbers
+bat auto-detects language from file extension
+bat works with Containerfiles too (mapped to Dockerfile syntax)
+
+# --- Git Shortcuts ---
+gs — git status
+gd — pretty side-by-side diff with syntax highlighting (delta)
+gl — last 20 commits in one line each
+ga — git add
+gc — git commit with sign-off (-s)
+gp — git push
+lg — open lazygit full TUI client
+
+# --- Git Worktrees ---
+gwl — list all active worktrees
+gwa ../feature-dir branch-name — create a worktree for parallel branch work
+gwr ../feature-dir — remove a worktree when done
+worktrees let you work on two branches at once without stashing
+
+# --- Lazygit ---
+lg — open lazygit in terminal
+Space+gg — open lazygit inside neovim
+In lazygit: Space to stage, c to commit, p to push, P to pull
+In lazygit: Enter on a file to see its diff
+In lazygit: 1-5 to switch between panels (status/files/branches/commits/stash)
+In lazygit: ? to see all keybindings
+In lazygit: e on a commit to start interactive rebase
+In lazygit: s on a commit to squash it into the previous one
+
+# --- tmux ---
+tmux — start a new session
+ts — pick a project with fzf and open a tmux session for it
+Ctrl+a | — split pane vertically
+Ctrl+a - — split pane horizontally
+Ctrl+a h/j/k/l — navigate between panes (vim keys)
+Ctrl+a H/J/K/L — resize panes
+Ctrl+a d — detach from session (it keeps running in background)
+tmux a — reattach to your last session
+Ctrl+a f — open tmux sessionizer from inside tmux
+Ctrl+a c — create a new tmux window
+Ctrl+a 1-9 — switch to window by number
+Ctrl+a r — reload tmux config
+
+# --- tmate ---
+tmate — start a shared terminal session, prints a URL others can join
+exit or Ctrl+d — end tmate session and revoke all links
+no port forwarding needed — works through tmate's relay servers
+
+# --- Neovim General ---
+Space+e — toggle file tree (neo-tree)
+Space+ff — find files by name (telescope)
+Space+fg — grep/search text across all project files
+Space+fb — switch between open buffers
+Space+fh — search help tags
+Space+fr — find recently opened files
+Space+fd — list all diagnostics/errors
+:e file — open a file by path
+:bd! — close current buffer without saving
+Shift+H / Shift+L — switch between buffers (left/right)
+Ctrl+h/j/k/l — navigate between splits
+
+# --- Neovim LSP ---
+gd — go to definition of symbol under cursor
+gr — find all references to symbol
+gi — go to implementation
+K — show hover documentation
+Space+rn — rename symbol across the project
+Space+ca — code actions (quick fixes, refactors)
+Space+D — go to type definition
+
+# --- Neovim Python ---
+auto-format on save with ruff (formatting + import sorting)
+Pyright auto-detects your venv when activated before opening nvim
+Space+db — toggle a debug breakpoint
+Space+dc — start the debugger (debugpy)
+direnv activates venv automatically, so just cd into project then open nvim
+
+# --- Neovim Editing ---
+gcc — toggle comment on current line
+gc in visual mode — toggle comment on selected lines
+cs'" — change surrounding single quotes to double quotes (surround)
+ds" — delete surrounding double quotes
+ysiw" — surround word with double quotes
+Ctrl+s — save file
+J/K in visual mode — move selected lines up/down
+
+# --- Neovim UI ---
+:Lazy — open plugin manager
+:Lazy sync — update all plugins
+:Lazy health — check plugin health
+any .md file renders with inline formatting automatically (render-markdown)
+
+# --- Safe Delete ---
+rm file — moves to trash (recoverable via trash-restore)
+rmm file — permanent delete (real /usr/bin/rm)
+trash-list — see what's in the trash
+trash-restore — recover a file from trash
+
+# --- direnv ---
+cd into a project with .envrc — direnv auto-runs it (e.g. activates venv)
+echo 'source .venv/bin/activate' > .envrc && direnv allow — set up auto-venv
+direnv allow — re-authorize after editing .envrc
+
+# --- GitHub CLI (gh) ---
+gh pr create — create a pull request from current branch
+gh pr list — list open PRs
+gh pr checkout 123 — check out someone's PR locally
+gh pr view 123 — view PR details
+gh run watch — watch CI status live
+gh issue list — list open issues
+
+# --- GitLab CLI (glab) ---
+glab mr create — create a merge request from current branch
+glab mr list — list open MRs
+glab mr checkout 123 — check out someone's MR locally
+glab ci status — check CI pipeline status
+glab ci view — watch CI pipeline live
+glab issue list — list open issues
+
+# --- pre-commit ---
+pre-commit install — set up git hooks in current project
+pre-commit run --all-files — run all linters/formatters manually
+pre-commit hooks run automatically on every git commit
+
+# --- Delta (git diffs) ---
+gd or git diff — automatically shows side-by-side syntax-highlighted diffs
+delta is configured as the global git pager — all diffs are pretty by default
+
+# --- Starship Prompt ---
+your prompt auto-shows: git branch, git status, python version, command duration
+commands taking >2 seconds show their duration in the prompt
+the prompt shows which venv is active
+
+# --- SSH ---
+ssh walkerpass — connect to walkerpass with short alias
+SSH keepalive is set to 60s — connections won't drop from inactivity
+AddKeysToAgent — only need to enter SSH passphrase once per session
+
+# --- Clipboard ---
+yank in neovim = system clipboard (works across apps)
+tmux copy mode: Ctrl+a [ to enter, v to select, y to copy
+all clipboard goes through wl-copy for Wayland compatibility
+
+# --- Dotfiles ---
+all configs live in ~/git/dotfiles and are symlinked to their real locations
+gs in ~/git/dotfiles — see what configs you've changed
+./packages.sh + ./install.sh — restore everything on a new machine
+
+# --- Misc ---
+tldr <cmd> — quick examples for any command (better than man pages)
+fastfetch — shows system info on every new terminal
+notify-send fires automatically when commands take >30 seconds
+pokemon-colorscripts shows a random pokemon on each new terminal

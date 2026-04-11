@@ -88,9 +88,42 @@ export FZF_ALT_C_OPTS="--preview 'eza --icons --tree --level=2 --color=always {}
 # direnv (auto-activate venvs)
 eval "$(direnv hook bash)"
 
-# Pretty terminal
-fastfetch
+# Long-running command notifications (notify-send after >30s)
+__cmd_timer_start() {
+    __cmd_timer=${__cmd_timer:-$SECONDS}
+    __cmd_name="${BASH_COMMAND}"
+}
+__cmd_timer_stop() {
+    if [ -n "$__cmd_timer" ]; then
+        local elapsed=$(( SECONDS - __cmd_timer ))
+        if [ $elapsed -ge 30 ]; then
+            notify-send "Command finished (${elapsed}s)" "$__cmd_name" --icon=utilities-terminal 2>/dev/null
+        fi
+        unset __cmd_timer
+        unset __cmd_name
+    fi
+}
+trap '__cmd_timer_start' DEBUG
+
+# Random MOTD tip (loaded from external file)
+__show_motd() {
+    local tips_file="$HOME/git/dotfiles/bash/motd-tips.txt"
+    if [ -f "$tips_file" ]; then
+        local tip
+        tip=$(grep -v '^#' "$tips_file" | grep -v '^$' | shuf -n 1)
+        [ -n "$tip" ] && echo "💡 $tip" && echo ""
+    fi
+}
+
+# Pretty terminal (pokemon art + system stats side-by-side, 20% chance classic Fedora logo)
+if (( RANDOM % 5 == 0 )); then
+    fastfetch
+else
+    fastfetch --data "$(pokemon-colorscripts -r --no-title)"
+fi
+__show_motd
 eval "$(starship init bash)"
+PROMPT_COMMAND="__cmd_timer_stop;${PROMPT_COMMAND}"
 
 # atuin (better shell history) - after starship so it doesn't override prompt
 eval "$(atuin init bash --disable-up-arrow)"
