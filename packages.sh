@@ -58,6 +58,16 @@ echo "--- Python tools ---"
 pip install --user pyright ruff debugpy
 
 echo ""
+echo "--- Pokemon Color Scripts ---"
+if ! command -v pokemon-colorscripts &>/dev/null; then
+    git clone https://gitlab.com/phoneybadger/pokemon-colorscripts.git /tmp/pokemon-colorscripts
+    cd /tmp/pokemon-colorscripts
+    sudo ./install.sh
+    cd -
+    rm -rf /tmp/pokemon-colorscripts
+fi
+
+echo ""
 echo "--- Yazi ---"
 if ! command -v yazi &>/dev/null; then
     cargo install --locked yazi-build
