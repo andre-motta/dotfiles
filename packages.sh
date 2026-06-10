@@ -105,7 +105,13 @@ fi
 
 echo ""
 echo "--- Python tools ---"
-pip install --user pyright ruff debugpy
+if command -v pip &>/dev/null; then
+    pip install --user pyright ruff debugpy
+elif command -v pip3 &>/dev/null; then
+    pip3 install --user pyright ruff debugpy
+else
+    echo "WARNING: pip not found, skipping Python tools"
+fi
 
 echo ""
 echo "--- Pokemon Color Scripts ---"

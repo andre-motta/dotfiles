@@ -1,41 +1,35 @@
-# .bashrc
+# .zshrc
 
 # Source global definitions
-if [ -f /etc/bashrc ]; then
-    . /etc/bashrc
+if [ -f /etc/zshrc ]; then
+    . /etc/zshrc
 fi
-
-# User specific aliases and functions
-if [ -d ~/.bashrc.d ]; then
-    for rc in ~/.bashrc.d/*; do
-        if [ -f "$rc" ]; then
-            . "$rc"
-        fi
-    done
-fi
-unset rc
 
 # Shared config (aliases, env, functions)
 source "$HOME/git/dotfiles/shell/common.sh"
 
 # Better history
 export HISTSIZE=50000
-export HISTFILESIZE=50000
-export HISTCONTROL=ignoreboth:erasedups
-shopt -s histappend
+export SAVEHIST=50000
+export HISTFILE=~/.zsh_history
+export HISTDUP=erase
+setopt APPEND_HISTORY
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_SPACE
+setopt HIST_IGNORE_ALL_DUPS
 
 # fzf keybindings and completion (Ctrl+R for history, Ctrl+T for files)
-eval "$(fzf --bash)"
+eval "$(fzf --zsh)"
 
 # direnv (auto-activate venvs)
-eval "$(direnv hook bash)"
+eval "$(direnv hook zsh)"
 
 # Long-running command notifications (notify after >30s)
-__cmd_timer_start() {
+__cmd_timer_preexec() {
     __cmd_timer=${__cmd_timer:-$SECONDS}
-    __cmd_name="${BASH_COMMAND}"
+    __cmd_name="$1"
 }
-__cmd_timer_stop() {
+__cmd_timer_precmd() {
     if [ -n "$__cmd_timer" ]; then
         local elapsed=$(( SECONDS - __cmd_timer ))
         if [ $elapsed -ge 30 ]; then
@@ -45,14 +39,15 @@ __cmd_timer_stop() {
         unset __cmd_name
     fi
 }
-trap '__cmd_timer_start' DEBUG
+autoload -Uz add-zsh-hook
+add-zsh-hook preexec __cmd_timer_preexec
+add-zsh-hook precmd __cmd_timer_precmd
 
 # Prompt and tools
-eval "$(starship init bash)"
-PROMPT_COMMAND="__cmd_timer_stop;${PROMPT_COMMAND}"
+eval "$(starship init zsh)"
 
 # atuin (better shell history) - after starship so it doesn't override prompt
-eval "$(atuin init bash --disable-up-arrow)"
+eval "$(atuin init zsh --disable-up-arrow)"
 
 # zoxide (smart cd) - must be last
-eval "$(zoxide init bash)"
+eval "$(zoxide init zsh)"

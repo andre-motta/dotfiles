@@ -21,8 +21,35 @@ link() {
 echo "=== Installing dotfiles from $DOTFILES ==="
 
 echo ""
-echo "--- Bash ---"
-link "$DOTFILES/bash/.bashrc" "$HOME/.bashrc"
+echo "Which shell do you use?"
+echo "  1) bash"
+echo "  2) zsh"
+echo "  3) both"
+read -rp "Select [1/2/3]: " shell_choice
+
+case "$shell_choice" in
+    1)
+        echo ""
+        echo "--- Bash ---"
+        link "$DOTFILES/bash/.bashrc" "$HOME/.bashrc"
+        ;;
+    2)
+        echo ""
+        echo "--- Zsh ---"
+        link "$DOTFILES/zsh/.zshrc" "$HOME/.zshrc"
+        ;;
+    3)
+        echo ""
+        echo "--- Bash ---"
+        link "$DOTFILES/bash/.bashrc" "$HOME/.bashrc"
+        echo ""
+        echo "--- Zsh ---"
+        link "$DOTFILES/zsh/.zshrc" "$HOME/.zshrc"
+        ;;
+    *)
+        echo "Invalid choice. Skipping shell config."
+        ;;
+esac
 
 echo ""
 echo "--- Neovim ---"
