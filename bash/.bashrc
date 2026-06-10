@@ -88,7 +88,7 @@ export FZF_ALT_C_OPTS="--preview 'eza --icons --tree --level=2 --color=always {}
 # direnv (auto-activate venvs)
 eval "$(direnv hook bash)"
 
-# Long-running command notifications (notify-send after >30s)
+# Long-running command notifications (notify after >30s)
 __cmd_timer_start() {
     __cmd_timer=${__cmd_timer:-$SECONDS}
     __cmd_name="${BASH_COMMAND}"
@@ -97,7 +97,11 @@ __cmd_timer_stop() {
     if [ -n "$__cmd_timer" ]; then
         local elapsed=$(( SECONDS - __cmd_timer ))
         if [ $elapsed -ge 30 ]; then
-            notify-send "Command finished (${elapsed}s)" "$__cmd_name" --icon=utilities-terminal 2>/dev/null
+            if [[ "$(uname -s)" == "Darwin" ]]; then
+                osascript -e "display notification \"$__cmd_name\" with title \"Command finished (${elapsed}s)\"" 2>/dev/null
+            else
+                notify-send "Command finished (${elapsed}s)" "$__cmd_name" --icon=utilities-terminal 2>/dev/null
+            fi
         fi
         unset __cmd_timer
         unset __cmd_name

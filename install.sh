@@ -2,6 +2,7 @@
 set -euo pipefail
 
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+OS="$(uname -s)"
 
 link() {
     local src="$1"
@@ -39,10 +40,12 @@ echo ""
 echo "--- Fastfetch ---"
 link "$DOTFILES/fastfetch/.config/fastfetch/config.jsonc" "$HOME/.config/fastfetch/config.jsonc"
 
-echo ""
-echo "--- Konsole ---"
-link "$DOTFILES/konsole/.local/share/konsole/Pretty.profile" "$HOME/.local/share/konsole/Pretty.profile"
-link "$DOTFILES/konsole/.local/share/konsole/Catppuccin-Mocha.colorscheme" "$HOME/.local/share/konsole/Catppuccin-Mocha.colorscheme"
+if [[ "$OS" == "Linux" ]]; then
+    echo ""
+    echo "--- Konsole ---"
+    link "$DOTFILES/konsole/.local/share/konsole/Pretty.profile" "$HOME/.local/share/konsole/Pretty.profile"
+    link "$DOTFILES/konsole/.local/share/konsole/Catppuccin-Mocha.colorscheme" "$HOME/.local/share/konsole/Catppuccin-Mocha.colorscheme"
+fi
 
 echo ""
 echo "--- bat ---"
