@@ -1,5 +1,10 @@
 # .bashrc
 
+# Codex commands are non-interactive and should not load prompts or terminal UI.
+if [[ ${CODEX_CI:-0} == 1 ]]; then
+    return
+fi
+
 # Source global definitions
 if [ -f /etc/bashrc ]; then
     . /etc/bashrc
@@ -56,3 +61,9 @@ eval "$(atuin init bash --disable-up-arrow)"
 
 # zoxide (smart cd) - must be last
 eval "$(zoxide init bash)"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/alustosa/Downloads/gcloud/google-cloud-sdk/path.bash.inc' ]; then . '/home/alustosa/Downloads/gcloud/google-cloud-sdk/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/alustosa/Downloads/gcloud/google-cloud-sdk/completion.bash.inc' ]; then . '/home/alustosa/Downloads/gcloud/google-cloud-sdk/completion.bash.inc'; fi

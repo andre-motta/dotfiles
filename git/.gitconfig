@@ -13,9 +13,28 @@
 [user]
 	name = Andre Lustosa
 	email = alustosa@redhat.com
+	signingkey = FC22E3A54B552780
 [credential "https://github.com"]
 	helper = 
 	helper = !/usr/bin/gh auth git-credential
 [credential "https://gist.github.com"]
 	helper = 
 	helper = !/usr/bin/gh auth git-credential
+[safe]
+	directory = /home/alustosa/git/core/package-onboarding/output-test-clone/pipeline
+	directory = /tmp/test-selfservice/selfservice
+	directory = /tmp/pfa-test-child/_repos/agentic-ci-autofix
+	directory = /tmp/pfa-test-child/_repos/fondue
+	directory = /tmp/pfa-test-child/_repos/agentic-ci-autofix
+	directory = /tmp/pfa-test-child/_repos/fondue
+	directory = /tmp/pfa-test-child/_repos/agentic-ci-autofix
+	directory = /tmp/pfa-test-child/_repos/fondue
+[push]
+	autoSetupRemote = true
+[credential "https://gitlab.com"]
+	helper =
+	helper = !/usr/bin/glab auth git-credential
+[commit]
+	gpgsign = true
+[tag]
+	gpgsign = true

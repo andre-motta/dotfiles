@@ -1,1 +1,9 @@
 .envrc
+
+**/.claude/settings.local.json
+
+**/.claude/.cc-writes/
+
+**/.agents/
+**/.direnv/
+**/.codex/
